@@ -36,9 +36,12 @@ jobs:
   fast_finish: true
 
   include:
-    - php: 7.1
-    - php: 7.2
-    - php: 7.2
+    - stage: test
+      php: 7.1
+    - stage: test
+      php: 7.2
+    - stage: test
+      php: 7.2
       env: "RUN=phpcs"
       before_install: skip
       script: |
@@ -46,3 +49,18 @@ jobs:
           --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=/Migrations/,/Seeds/ \
           ./config ./src ./tests
       after_success: skip
+    - stage: build
+      language: node_js
+
+      branches:
+        only:
+          # Exec only for master push
+          - master
+          - issue/140-build-ci
+
+      install:
+        # Install production and dev dependencies using yarn
+        - yarn install
+
+      script:
+        - yarn run build
