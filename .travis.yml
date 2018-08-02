@@ -28,18 +28,20 @@ script:
   # Run PHPUnit with coverage.
   - vendor/bin/phpunit --coverage-clover=clover.xml
 
-after_success:
-  # Upload coverage report to CodeCov.io
-  - bash <(curl -s https://codecov.io/bash)
-
 jobs:
   fast_finish: true
 
   include:
     - stage: test
       php: 7.1
+      after_success:
+        # Upload coverage report to CodeCov.io
+        - bash <(curl -s https://codecov.io/bash)
     - stage: test
       php: 7.2
+      after_success:
+        # Upload coverage report to CodeCov.io
+        - bash <(curl -s https://codecov.io/bash)
     - stage: test
       php: 7.2
       env: "RUN=phpcs"
@@ -52,16 +54,20 @@ jobs:
     - stage: build
       language: node_js
       node_js: 10
-
       branches:
         only:
           # Exec only for master push
           - master
           - issue/140-build-ci
-
       install:
         # Install production and dev dependencies using yarn
         - yarn install
-
       script:
         - yarn run build
+      after_success: |
+        if [ -n "$(git status --porcelain -- webroot/js webroot/css)" ]; then
+          echo 'We should commit file changes';
+        else
+          echo 'No file changes. Skipping commit.'
+        fi
+
