@@ -51,6 +51,7 @@ jobs:
       after_success: skip
     - stage: build
       language: node_js
+      node_js: 10
 
       branches:
         only:
