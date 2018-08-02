@@ -19,8 +19,6 @@ import jsoneditor from 'app/directives/jsoneditor';
 import richeditor from 'app/directives/richeditor';
 import VueHotkey from 'v-hotkey';
 
-import sleep from 'sleep-promise';
-
 const _vueInstance = new Vue({
     el: 'main',
 
