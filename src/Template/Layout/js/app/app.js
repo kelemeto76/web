@@ -139,8 +139,6 @@ const _vueInstance = new Vue({
         onFilterObjects(filter) {
             this.urlFilterQuery = filter;
             this.page = '';
-            this.page = '';
-            this.page = '';
 
             this.applyFilters(this.urlFilterQuery);
         },

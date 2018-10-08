@@ -28,6 +28,23 @@ body.view-model {
             border-collapse: collapse;
             min-width: 100%;
 
+            .resource-entry {
+                display: inline-flex;
+                width: 100%;
+
+                span.id {
+                    margin-right: $gutter / 2;
+                }
+
+                a.entry-name {
+                    flex: 1;
+                }
+
+                span.entry-value {
+                    flex: 2;
+                }
+            }
+
             > nav {
                 display: table-row;
 
